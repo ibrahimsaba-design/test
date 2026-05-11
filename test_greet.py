@@ -1,18 +1,12 @@
-name: Python application
+import unittest
+from greet import greet
 
-on: [push, pull_request]
+class TestGreet(unittest.TestCase):
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+    def test_greet(self):
+        self.assertEqual(greet("Alice"), "Hello, Alice")
+        self.assertEqual(greet(""), "Hello, Stranger")
+        self.assertEqual(greet(None), "Hello, Stranger")
 
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Run tests
-        run: python -m unittest discover
+if __name__ == "__main__":
+    unittest.main()
